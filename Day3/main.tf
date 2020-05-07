@@ -11,8 +11,8 @@ resource "random_id" "rand" {
   byte_length = 4
 }
 
-resource "openstack_compute_keypair_v2" "icp-key-pair" {
-  name       = "terraform-icp-key-pair-${random_id.rand.hex}"
+resource "openstack_compute_keypair_v2" "key-pair" {
+  name       = "terraform-key-pair-${random_id.rand.hex}"
   public_key = "${file("${var.openstack_ssh_key_file}.pub")}"
 }
 
@@ -20,7 +20,7 @@ resource "openstack_compute_instance_v2" "openstack-vm" {
   name              = "${var.instance_prefix}-vm-${random_id.rand.hex}"
   image_id          = "${var.openstack_image_id}"
   flavor_id         = "${var.openstack_flavor_id}"
-  key_pair          = "${openstack_compute_keypair_v2.icp-key-pair.name}"
+  key_pair          = "${openstack_compute_keypair_v2.key-pair.name}"
   availability_zone = "${var.openstack_availability_zone}"
 
   network {
