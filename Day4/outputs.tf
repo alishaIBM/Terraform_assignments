@@ -5,3 +5,8 @@ output "vm_ip" {
 output "volume_name" {
   value = "${openstack_blockstorage_volume_v2.volume_1.name}"
 }
+
+output "html_file_content" {
+  depends_on = ["http.file_content"]
+  value      = "Html file content : ${data.http.file_content.body}"
+}

@@ -39,8 +39,6 @@ resource "openstack_compute_volume_attach_v2" "va_1" {
   volume_id   = "${openstack_blockstorage_volume_v2.volume_1.id}"
 }
 
-#------------------------------Day4 Assignment solution----------------------------
-
 resource "null_resource" "http_service" {
   connection {
     type        = "ssh"
@@ -51,7 +49,7 @@ resource "null_resource" "http_service" {
   }
 
   provisioner "file" {
-    content     = "/root/index.html"
+    content     = "index.html"
     destination = "/tmp/index.html"
   }
 
@@ -66,11 +64,17 @@ resource "null_resource" "http_service" {
   }
 
   provisioner "remote-exec" {
-    when        = destroy
-    on_failure  = continue
+    when       = "destroy"
+    on_failure = "continue"
+
     inline = [
       "sudo yum erase httpd httpd-tools",
-      "rm -f /tmp/index.html /var/www/html/index.html",
+      "rm -f /tmp/index.html",
     ]
   }
+}
+
+data "http" "file_content" {
+  depends_on = ["null_resource.http_service"]
+  url        = "http://${openstack_compute_instance_v2.openstack-vm.0.network.0.fixed_ip_v4}:80"
 }

@@ -63,9 +63,7 @@ variable "openstack_flavor_id" {
   default     = "flavor_id"
 }
 
-#-------------------------------Day4 Solution------------------------
-
 variable "install_user" {
-  description = "The user with sudo access across nodes "
+  description = "The user with sudo access"
   default     = "root"
 }

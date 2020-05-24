@@ -1,7 +1,7 @@
 ## Setup this repo :
 On your Terraform client machine:
 1. `git clone https://github.com/alishaIBM/Terraform_assignments.git`
-2. `cd Day3`
+2. `cd Day4`
 
 ## Setup Terraform variables :
 Edit the var.tfvars with the foll. variables :
@@ -18,8 +18,9 @@ Edit the var.tfvars with the foll. variables :
 * `instance_prefix` : Prefix to use in instance names
 * `volume_prefix` : Prefix to use in volume name
 * `volume_size` : The size of the volume
+* `install_user` : The user with sudo access
 
 ## How-to run Terraform resources
-Under Terraform_assignments/Day3 directory:
+Under Terraform_assignments/Day4 directory:
 1. `terraform init`
 2. `terraform apply -var-file var.tfvars`
